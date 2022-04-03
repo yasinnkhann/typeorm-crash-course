@@ -11,6 +11,7 @@ import { deleteClientRouter } from './routes/delete_client';
 import { fetchClientsRouter } from './routes/fetch_clients';
 
 const app = express();
+const PORT = process.env.PORT || 8080;
 
 const main = async () => {
 	try {
@@ -18,9 +19,9 @@ const main = async () => {
 			type: 'postgres',
 			host: 'localhost',
 			port: 5432,
-			username: 'laithharb',
-			password: undefined,
-			database: 'typeorm',
+			username: 'postgres',
+			password: 'password',
+			database: 'typeorm-tut',
 			entities: [Client, Banker, Transaction],
 			synchronize: true,
 		});
@@ -35,7 +36,7 @@ const main = async () => {
 		app.use(deleteClientRouter);
 		app.use(fetchClientsRouter);
 
-		app.listen(8080, () => {
+		app.listen(PORT, () => {
 			console.log('Now running on port 8080');
 		});
 	} catch (error) {

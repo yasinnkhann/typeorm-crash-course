@@ -21,7 +21,7 @@ export class Transaction extends BaseEntity {
 	id: number;
 
 	@Column({
-		type: 'enum',
+		type: 'enum', // has to be called type
 		enum: TransactionType,
 	})
 	type: string;
@@ -31,13 +31,9 @@ export class Transaction extends BaseEntity {
 	})
 	amount: number;
 
-	@ManyToOne(
-		() => Client,
-		(client) => client.transactions,
-		{
-			onDelete: 'CASCADE',
-		}
-	)
+	@ManyToOne(() => Client, client => client.transactions, {
+		onDelete: 'CASCADE',
+	})
 	@JoinColumn({
 		name: 'client_id',
 	})
